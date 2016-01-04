@@ -1,2 +1,2 @@
-## Rails Engine
+== Rails Engine
 A Turing school project to build a JSON API that exposes the "SalesEngine" data schema
