@@ -4,6 +4,10 @@ class InvoiceItem < ActiveRecord::Base
 
   before_save :set_unit_price
 
+  def self.random
+    self.order("RANDOM()").first
+  end
+
   private
 
   def set_unit_price
