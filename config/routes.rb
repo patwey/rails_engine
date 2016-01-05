@@ -61,6 +61,11 @@ Rails.application.routes.draw do
         get ":id/customer",      to: "customers#show"
         get ":id/merchant",      to: "merchants#show"
       end
+
+      namespace :invoice_items do
+        get ":id/item",    to: "items#show"
+        get ":id/invoice", to: "invoices#show"
+      end
     end
   end
 end
