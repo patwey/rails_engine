@@ -4,8 +4,7 @@ class Item < ActiveRecord::Base
   before_save :set_unit_price
 
   def self.random
-    offset = rand(self.count)
-    self.offset(offset).first
+    self.order("RANDOM()").first
   end
 
   private
