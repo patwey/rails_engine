@@ -48,6 +48,11 @@ Rails.application.routes.draw do
           get "/random",   to: "transactions#random"
         end
       end
+
+      namespace :merchants do
+        get ":id/items", to: "items#index"
+        get ":id/invoices", to: "invoices#index"
+      end
     end
   end
 end
