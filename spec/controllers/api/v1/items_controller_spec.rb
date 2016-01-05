@@ -157,7 +157,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
                         description:  "A Description",
                         unit_price:   10.00,
                         merchant_id:  m.id)
-      allow(Customer).to receive(:random) { i1 }
+      allow(Item).to receive(:random) { i1 }
 
       get :show, random: "random", format: :json
 
