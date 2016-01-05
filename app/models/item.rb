@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
   belongs_to :merchant
-  belongs_to :invoice_item
+  has_many   :invoice_items
 
   before_save :set_unit_price
 
