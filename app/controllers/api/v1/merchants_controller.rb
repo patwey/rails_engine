@@ -2,10 +2,24 @@ class Api::V1::MerchantsController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Merchant.all
+    respond_with Merchant.where(merchant_params)
   end
 
   def show
-    respond_with Merchant.find(params[:id])
+    if random?
+      respond_with Merchant.random
+    else
+      respond_with Merchant.find_by(merchant_params)
+    end
+  end
+
+  private
+
+  def merchant_params
+    params.permit(:id, :name)
+  end
+
+  def random?
+    params[:random] == "random"
   end
 end
