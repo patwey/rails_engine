@@ -6,11 +6,11 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def show
-    if random?
-      respond_with Customer.random
-    else
-      respond_with Customer.find_by(customer_params)
-    end
+    respond_with Customer.find_by(customer_params)
+  end
+
+  def random
+    respond_with Customer.random
   end
 
   private

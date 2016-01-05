@@ -6,11 +6,11 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-    if random?
-      respond_with Item.random
-    else
-      respond_with Item.find_by(item_params)
-    end
+    respond_with Item.find_by(item_params)
+  end
+
+  def random
+    respond_with Item.random
   end
 
   private
