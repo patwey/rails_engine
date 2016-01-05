@@ -5,7 +5,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
     n.times do |n|
       Item.create!(name:        "Name #{n}",
                    description: "Description #{n}",
-                   unit_price:  100,
+                   unit_price:  100.00,
                    merchant_id: merchant_id)
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
       m = Merchant.create!(name: "Merchant")
       i = Item.create!(name:        "Name",
                        description: "Description",
-                       unit_price:  100,
+                       unit_price:  100.00,
                        merchant_id: m.id)
 
       get :show, id: i.id, format: :json

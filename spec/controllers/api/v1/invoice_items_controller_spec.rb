@@ -15,7 +15,7 @@ RSpec.describe Api::V1::InvoiceItemsController, type: :controller do
       m = Merchant.create!(name: "Name")
       item = Item.create!(name: "Item1",
                           description: "Description",
-                          unit_price: 10,
+                          unit_price: 10.00,
                           merchant_id: m.id)
       c = Customer.create!(first_name: "First Name",
                            last_name:  "Last Name")
@@ -35,7 +35,7 @@ RSpec.describe Api::V1::InvoiceItemsController, type: :controller do
       m = Merchant.create!(name: "Merchant")
       item = Item.create!(name: "Item1",
                           description: "Description",
-                          unit_price: 10,
+                          unit_price: 10.00,
                           merchant_id: m.id)
       c = Customer.create!(first_name: "First Name",
                            last_name:  "Last Name")
