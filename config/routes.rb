@@ -43,9 +43,9 @@ Rails.application.routes.draw do
 
       resources :transactions,  only: [:index, :show], defaults: { format: :json } do
         collection do
-          get "/find",     to: "invoice_items#show"
-          get "/find_all", to: "invoice_items#index"
-          get "/random",   to: "invoice_items#random"
+          get "/find",     to: "transactions#show"
+          get "/find_all", to: "transactions#index"
+          get "/random",   to: "transactions#random"
         end
       end
     end

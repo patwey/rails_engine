@@ -3,6 +3,8 @@ class Item < ActiveRecord::Base
 
   before_save :set_unit_price
 
+  default_scope -> { order('id DESC') }
+  
   def self.random
     self.order("RANDOM()").first
   end
