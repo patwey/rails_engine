@@ -34,6 +34,7 @@ RSpec.describe Api::V1::MerchantsController, type: :controller do
       m = Merchant.create!(name: "Name")
 
       get :show, id: "#{m.id}", format: :json
+
       expect(response.status).to eq(200)
       expect(response.body).to eq(Merchant.find(m.id).to_json)
     end
