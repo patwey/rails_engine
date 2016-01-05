@@ -18,8 +18,4 @@ class Api::V1::MerchantsController < ApplicationController
   def merchant_params
     params.permit(:id, :name)
   end
-
-  def random?
-    params[:random] == "random"
-  end
 end
