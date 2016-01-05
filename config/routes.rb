@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :merchants, only: [:index, :show], defaults: { format: :json }
       resources :customers, only: [:index, :show], defaults: { format: :json }
+      resources :items,     only: [:index, :show], defaults: { format: :json }
     end
   end
 end

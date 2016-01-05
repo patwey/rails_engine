@@ -20,12 +20,12 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
 
   describe "get #show" do
     it "returns the customer with given id" do
-      m = Customer.create!(first_name: "First",
+      c = Customer.create!(first_name: "First",
                            last_name:  "Last")
 
-      get :show, id: m.id, format: :json
+      get :show, id: c.id, format: :json
       expect(response.status).to eq(200)
-      expect(response.body).to eq(Customer.find(m.id).to_json)
+      expect(response.body).to eq(Customer.find(c.id).to_json)
     end
   end
 end
