@@ -76,8 +76,7 @@ def import_transactions
   transactions_csv = CSV.read(transactions_file, headers: true, header_converters: :symbol).map { |r| r.to_h }
   transactions_csv.each do |data|
     t = Transaction.create!(invoice_id:                  data[:invoice_id].to_i,
-                            credit_card_number:          data[:credit_card_number].to_i,
-                            credit_card_expiration_date: data[:credit_card_expiration_date].to_i,
+                            credit_card_number:          data[:credit_card_number],
                             result:                      data[:result],
                             created_at:                  data[:created_at],
                             updated_at:                  data[:updated_at])
