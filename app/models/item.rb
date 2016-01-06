@@ -16,6 +16,12 @@ class Item < ActiveRecord::Base
                         .map { |id, _| Item.find(id) }
   end
 
+  def self.most_revenue(n, item_ids_by_revenue)
+    item_ids_by_revenue.sort_by { |id, revenue| revenue }
+                       .reverse.first(n)
+                       .map { |id, _| Item.find(id) }
+  end
+
   private
 
   def set_unit_price

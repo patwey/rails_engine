@@ -23,7 +23,8 @@ Rails.application.routes.draw do
           get "/find",         to: "items#show"
           get "/find_all",     to: "items#index"
           get "/random",       to: "items#random"
-          get "/most_items", to: "items_most_items#index"
+          get "/most_items",   to: "items_most_items#index"
+          get "/most_revenue", to: "items_most_revenue#index"
         end
       end
 
