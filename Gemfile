@@ -13,6 +13,7 @@ gem 'responders'
 group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.0'
+  gem 'simplecov', require: false
 end
 
 group :development do

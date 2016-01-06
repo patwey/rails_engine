@@ -12,4 +12,8 @@ class Invoice < ActiveRecord::Base
   def self.random
     self.order("RANDOM()").first
   end
+
+  def total_revenue
+    self.invoice_items.reduce(0) { |sum, ii| sum += ii.revenue; sum }
+  end
 end

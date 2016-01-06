@@ -3,9 +3,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :merchants, only: [:index, :show], defaults: { format: :json } do
         collection do
-          get "/find",     to: "merchants#show"
-          get "/find_all", to: "merchants#index"
-          get "/random",   to: "merchants#random"
+          get "/find",      to: "merchants#show"
+          get "/find_all",  to: "merchants#index"
+          get "/random",    to: "merchants#random"
+          get ":id/revenue", to: "merchants_total_revenue#show"
         end
       end
 
