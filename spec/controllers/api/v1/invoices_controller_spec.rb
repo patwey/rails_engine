@@ -70,17 +70,4 @@ RSpec.describe Api::V1::InvoicesController, type: :controller do
       expect(response.body).to eq(Invoice.where(status: status).to_json)
     end
   end
-
-  describe "get #random" do
-    it "returns a 'random' invoice" do
-      i = Invoice.create!(status: "completed")
-      Invoice.create!(status: "completed")
-      allow(Invoice).to receive(:random) { i }
-
-      get :random, format: :json
-
-      expect(response.status).to eq(200)
-      expect(response.body).to eq(Invoice.find(i.id).to_json)
-    end
-  end
 end

@@ -4,10 +4,6 @@ class Merchant < ActiveRecord::Base
 
   default_scope -> { order('id DESC') }
 
-  def self.random
-    self.order("RANDOM()").first
-  end
-
   def self.by_most_revenue(n)
     self.all
         .sort_by { |m| m.total_revenue["revenue"].to_f }

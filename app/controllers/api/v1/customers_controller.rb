@@ -9,10 +9,6 @@ class Api::V1::CustomersController < ApplicationController
     respond_with Customer.find_by(customer_params)
   end
 
-  def random
-    respond_with Customer.random
-  end
-
   private
 
   def customer_params

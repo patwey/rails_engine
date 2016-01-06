@@ -86,17 +86,4 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
       expect(response.body).to eq(Customer.where(last_name: m1.last_name).to_json)
     end
   end
-
-  describe "get /random" do
-    it "returns a 'random' merchant" do
-      m1 = Customer.create!(first_name: "First Name1")
-      m2 = Customer.create!(first_name: "First Name2")
-      allow(Customer).to receive(:random) { m1 }
-
-      get :random, format: :json
-
-      expect(response.status).to eq(200)
-      expect(response.body).to eq(Customer.find(m1.id).to_json)
-    end
-  end
 end

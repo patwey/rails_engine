@@ -76,17 +76,4 @@ RSpec.describe Api::V1::TransactionsController, type: :controller do
       expect(response.body).to eq(Transaction.where(result: result).to_json)
     end
   end
-
-  describe "get #random" do
-    it "returns a 'random' transaction" do
-      t = Transaction.create!(result: "success")
-      Transaction.create!(result: "success")
-      allow(Transaction).to receive(:random) { t }
-
-      get :random, format: :json
-
-      expect(response.status).to eq(200)
-      expect(response.body).to eq(Transaction.find(t.id).to_json)
-    end
-  end
 end

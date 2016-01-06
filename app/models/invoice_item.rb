@@ -6,10 +6,6 @@ class InvoiceItem < ActiveRecord::Base
 
   default_scope -> { order('id DESC') }
 
-  def self.random
-    self.order("RANDOM()").first
-  end
-
   def revenue
     (self.unit_price * self.quantity).to_f
   end
