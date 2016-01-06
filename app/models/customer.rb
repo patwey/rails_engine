@@ -9,11 +9,12 @@ class Customer < ActiveRecord::Base
   end
 
   def self.favorite_merchant(id)
-    # TODO: Fix this!
     self.find(id)
         .transactions
         .where(result: "success")
         .group_by { |t| t.merchant }
+        .sort_by { |m, t| t.count }
+        .reverse
         .first
         .first
   end
