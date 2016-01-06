@@ -43,6 +43,7 @@ RSpec.describe Api::V1::MerchantsController, type: :controller do
       m = Merchant.create!(name: "Name")
 
       get :show, name: "#{m.name}", format: :json
+
       expect(response.status).to eq(200)
       expect(response.body).to eq(Merchant.find_by(name: m.name).to_json)
     end
@@ -66,7 +67,7 @@ RSpec.describe Api::V1::MerchantsController, type: :controller do
       m2 = Merchant.create!(name: "Name2")
       allow(Merchant).to receive(:random) { m1 }
 
-      get :show, random: "random", format: :json
+      get :random, format: :json
 
       expect(response.status).to eq(200)
       expect(response.body).to eq(Merchant.find(m1.id).to_json)

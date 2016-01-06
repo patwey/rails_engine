@@ -3,8 +3,6 @@ require 'rails_helper'
 RSpec.describe Api::V1::TransactionsController, type: :controller do
   def create_transactions(n, invoice_id)
     n.times do |n|
-      # remove create_card_expiration_date
-      # create_card_number_as_string
       Transaction.create!(invoice_id:         invoice_id,
                           credit_card_number: "1234567891234567",
                           result:             "success")
@@ -40,6 +38,53 @@ RSpec.describe Api::V1::TransactionsController, type: :controller do
                               result:             "success")
 
       get :show, id: t.id, format: :json
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(Transaction.find(t.id).to_json)
+    end
+  end
+
+  describe "get /find" do
+    it "returns the transaction with the given id" do
+      t = Transaction.create!(result: "success")
+
+      get :show, id: "#{t.id}", format: :json
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(Transaction.find(t.id).to_json)
+    end
+
+    it "returns the transaction with the given credit_card_number" do
+      cc_number = "1234567891234567"
+      t = Transaction.create!(credit_card_number: cc_number)
+
+      get :show, credit_card_number: "#{cc_number}", format: :json
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(Transaction.find_by(credit_card_number: cc_number).to_json)
+    end
+  end
+
+  describe "get /find_all" do
+    it "returns all of the transactions with the given result" do
+      result = "success"
+      Transaction.create!(result: result)
+      Transaction.create!(result: result)
+
+      get :index, result: "#{result}", format: :json
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(Transaction.where(result: result).to_json)
+    end
+  end
+
+  describe "get #random" do
+    it "returns a 'random' transaction" do
+      t = Transaction.create!(result: "success")
+      Transaction.create!(result: "success")
+      allow(Transaction).to receive(:random) { t }
+
+      get :random, format: :json
+
       expect(response.status).to eq(200)
       expect(response.body).to eq(Transaction.find(t.id).to_json)
     end

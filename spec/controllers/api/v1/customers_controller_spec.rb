@@ -88,12 +88,12 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   end
 
   describe "get /random" do
-    xit "returns a 'random' merchant" do
+    it "returns a 'random' merchant" do
       m1 = Customer.create!(first_name: "First Name1")
       m2 = Customer.create!(first_name: "First Name2")
       allow(Customer).to receive(:random) { m1 }
 
-      get :show, random: "random", format: :json
+      get :random, format: :json
 
       expect(response.status).to eq(200)
       expect(response.body).to eq(Customer.find(m1.id).to_json)

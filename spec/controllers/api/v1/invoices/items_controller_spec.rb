@@ -14,7 +14,7 @@ RSpec.describe Api::V1::Invoices::ItemsController, type: :controller do
       expect(response.status).to eq(200)
     end
 
-    xit "returns items for the invoice with the given invoice id" do
+    it "returns items for the invoice with the given invoice id" do
       item = Item.create!(unit_price: 100)
       item2 = Item.create!(unit_price: 200)
       invoice = Invoice.create!(status: "complete")

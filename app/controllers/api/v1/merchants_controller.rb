@@ -6,11 +6,11 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def show
-    if random?
-      respond_with Merchant.random
-    else
-      respond_with Merchant.find_by(merchant_params)
-    end
+    respond_with Merchant.find_by(merchant_params)
+  end
+
+  def random
+    respond_with Merchant.random
   end
 
   private

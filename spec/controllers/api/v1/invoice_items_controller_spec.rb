@@ -52,4 +52,75 @@ RSpec.describe Api::V1::InvoiceItemsController, type: :controller do
       expect(response.body).to eq(InvoiceItem.find(i.id).to_json)
     end
   end
+
+  describe "get /find" do
+    it "returns the invoice item with the given id" do
+      i = InvoiceItem.create(unit_price: 100)
+
+      get :show, id: "#{i.id}", format: :json
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(InvoiceItem.find(i.id).to_json)
+    end
+
+    it "returns the invoice item with the given item_id" do
+      item = Item.create!(unit_price: 100)
+      i = InvoiceItem.create(unit_price: item.unit_price,
+                             item_id: item.id)
+
+      get :show, item_id: "#{item.id}", format: :json
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(InvoiceItem.find_by(item_id: item.id).to_json)
+    end
+
+    it "returns the invoice item with the given invoice_id" do
+      invoice = Invoice.create!(status: "completed")
+      i = InvoiceItem.create(unit_price: 100,
+                             invoice_id: invoice.id)
+
+      get :show, invoice_id: "#{invoice.id}", format: :json
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(InvoiceItem.find_by(invoice_id: invoice.id).to_json)
+    end
+
+    it "returns the invoice item with the given quantity" do
+      quantity = 1
+      i = InvoiceItem.create!(unit_price: 100,
+                             quantity: quantity)
+
+      get :show, quantity: "#{quantity}", format: :json
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(InvoiceItem.find_by(quantity: quantity).to_json)
+    end
+  end
+
+  describe "get /find_all" do
+    it "returns all of the invoice items with the given quantity" do
+      quantity = 1
+      i = InvoiceItem.create!(unit_price: 100,
+                              quantity: quantity)
+
+      get :index, quantity: "#{quantity}", format: :json
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(InvoiceItem.where(quantity: quantity).to_json)
+    end
+  end
+
+  describe "get #random" do
+    it "returns a 'random' invoice item" do
+      ii1 = InvoiceItem.create!(unit_price: 100)
+      InvoiceItem.create!(unit_price: 200)
+      allow(InvoiceItem).to receive(:random) { ii1 }
+
+      get :random, format: :json
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(InvoiceItem.find(ii1.id).to_json)
+    end
+  end
+
 end

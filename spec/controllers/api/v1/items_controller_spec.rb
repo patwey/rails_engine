@@ -147,7 +147,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
   end
 
   describe "get /random" do
-    xit "returns a 'random' item" do
+    it "returns a 'random' item" do
       m = Merchant.create!(name: "Merchant")
       i1 = Item.create!(name:         "The Item",
                         description:  "A Description",
@@ -159,7 +159,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
                         merchant_id:  m.id)
       allow(Item).to receive(:random) { i1 }
 
-      get :show, random: "random", format: :json
+      get :random, format: :json
 
       expect(response.status).to eq(200)
       expect(response.body).to eq(Item.find(i1.id).to_json)
