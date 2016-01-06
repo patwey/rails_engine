@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#most_items" do
+    it "returns the top x item instances ranked by total number sold" do
+      skip
+    end
+  end
 end

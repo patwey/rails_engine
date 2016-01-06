@@ -20,9 +20,10 @@ Rails.application.routes.draw do
 
       resources :items, only: [:index, :show], defaults: { format: :json } do
         collection do
-          get "/find",     to: "items#show"
-          get "/find_all", to: "items#index"
-          get "/random",   to: "items#random"
+          get "/find",         to: "items#show"
+          get "/find_all",     to: "items#index"
+          get "/random",       to: "items#random"
+          get "/most_items", to: "items_most_items#index"
         end
       end
 

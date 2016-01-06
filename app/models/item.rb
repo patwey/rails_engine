@@ -10,6 +10,12 @@ class Item < ActiveRecord::Base
     self.order("RANDOM()").first
   end
 
+  def self.most_items(n, item_ids_by_quantity)
+    item_ids_by_quantity.sort_by { |id, quantity| quantity }
+                        .reverse.first(n)
+                        .map { |id, _| Item.find(id) }
+  end
+
   private
 
   def set_unit_price
