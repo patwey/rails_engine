@@ -4,14 +4,12 @@ class Customer < ActiveRecord::Base
 
   default_scope -> { order('id DESC') }
 
-  def self.favorite_merchant(id)
-    self.find(id)
-        .transactions
-        .where(result: "success")
-        .group_by { |t| t.merchant }
-        .sort_by { |m, t| t.count }
-        .reverse
-        .first
-        .first
+  def favorite_merchant
+    favorite_merchant_id = self.invoices.where(status: "shipped")
+                               .group(:merchant_id)
+                               .count
+                               .max_by { |id, count| count }[0]
+
+    Merchant.find(favorite_merchant_id)
   end
 end

@@ -11,21 +11,28 @@ class Merchant < ActiveRecord::Base
         .first(n)
   end
 
+
+  def favorite_customer
+    favorite_customer_id = self.invoices.where(status: "shipped")
+                               .group(:customer_id)
+                               .count
+                               .max_by { |id, count| count }[0]
+
+    Customer.find(favorite_customer_id)
+  end
+
   def total_revenue
-    { "revenue" => successful_transactions.reduce(0) { |sum, i| sum += i.total_revenue }
-                                          .round(2)
-                                          .to_s }
+    { "revenue" => successful_invoices.joins(:invoice_items)
+                                      .sum("unit_price * quantity") }
   end
 
   def total_revenue_on(date)
-    { "revenue" => successful_transactions.where(created_at: date)
-                                          .reduce(0) { |sum, i| sum += i.total_revenue }
-                                          .round(2)
-                                          .to_s }
+    { "revenue" => successful_invoices.where(created_at: date)
+                                      .joins(:invoice_items)
+                                      .sum("unit_price * quantity") }
   end
 
-
-  def successful_transactions
+  def successful_invoices
     invoices.joins(:transactions)
             .where(:transactions => { result: "success" })
   end
