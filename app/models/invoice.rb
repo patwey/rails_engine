@@ -6,8 +6,6 @@ class Invoice < ActiveRecord::Base
   has_many :invoice_items
   has_many :items, through: :invoice_items
 
-  # default_scope -> { order('id DESC') }
-
   def self.random
     self.order("RANDOM()").first
   end
