@@ -17,12 +17,4 @@ RSpec.describe Customer, type: :model do
       expect(fm.id).to eq(m1.id)
     end
   end
-
-  def create_invoices(customer_id, merchant_id, status, n)
-    n.times do |n|
-      i = Invoice.create!(customer_id: customer_id,
-                          merchant_id: merchant_id,
-                          status: status)
-    end
-  end
 end
