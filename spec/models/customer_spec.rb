@@ -8,22 +8,13 @@ RSpec.describe Customer, type: :model do
       c = Customer.create!(first_name: "First Name",
                            last_name: "Last Name")
 
-      create_transactions(c.id, m1.id, "success", 2)
-      create_transactions(c.id, m2.id, "failed", 2)
-      create_transactions(c.id, m2.id, "success", 1)
+      create_invoices(c.id, m1.id, "shipped", 2)
+      create_invoices(c.id, m2.id, "pending", 2)
+      create_invoices(c.id, m2.id, "shipped", 1)
 
-      fm = Customer.favorite_merchant(c.id)
+      fm = Customer.find(c.id).favorite_merchant
 
       expect(fm.id).to eq(m1.id)
-    end
-  end
-
-  def create_transactions(customer_id, merchant_id, result, n)
-    n.times do |n|
-      i = Invoice.create!(customer_id: customer_id,
-                          merchant_id: merchant_id)
-      Transaction.create!(invoice_id: i.id,
-                          result: result)
     end
   end
 end

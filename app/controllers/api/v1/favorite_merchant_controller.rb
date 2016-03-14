@@ -2,6 +2,6 @@ class Api::V1::FavoriteMerchantController < ApplicationController
   respond_to :json
 
   def show
-    respond_with Customer.favorite_merchant(params[:id])
+    respond_with Customer.find(params[:id]).favorite_merchant
   end
 end
